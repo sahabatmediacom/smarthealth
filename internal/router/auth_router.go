@@ -18,4 +18,5 @@ func AuthRouter(api *gin.RouterGroup) {
 	r.POST("/login", authHandler.Login)
 	r.POST("/register", authHandler.Register)
 	r.PUT("/changepwd", authHandler.ChangePassword)
+
 }

@@ -17,7 +17,6 @@ type LoginResponse struct {
 	Username    string `json:"username"`
 	ParamedicID string `json:"paramedic_id"`
 	Token       string `json:"token"`
-	// Paramedic   entity.Paramedic
 }
 
 type ChangePasswordRequest struct {

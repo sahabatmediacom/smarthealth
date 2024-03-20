@@ -79,8 +79,12 @@ func (h *authHandler) ChangePassword(c *gin.Context) {
 
 	res := helper.Response(dto.ResponseParams{
 		StatusCode: http.StatusOK,
-		Message:    fmt.Sprintf("User with username %v, successfully changed password", changePwd.Username),
+		Message:    fmt.Sprintf("ganti password berhasil"),
 	})
 
 	c.JSON(http.StatusOK, res)
+}
+
+func (h *authHandler) CheckToken(c *gin.Context) {
+
 }

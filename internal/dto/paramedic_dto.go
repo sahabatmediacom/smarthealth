@@ -7,10 +7,8 @@ type ParamedicRequest struct {
 }
 
 type ParamedicResponse struct {
-	ID          int                 `json:"id"`
-	Name        string              `json:"name"`
-	Hospitals   []*HospitalResponse `json:"hospitals"`
-	IDSatusehat string              `json:"id_satusehat"`
-	CreatedAt   string              `json:"created_at"`
-	UpdatedAt   string              `json:"updated_at"`
+	ID          int                `json:"id"`
+	Name        string             `json:"name"`
+	Hospitals   []HospitalResponse `json:"hospitals"`
+	IDSatusehat string             `json:"id_satusehat"`
 }

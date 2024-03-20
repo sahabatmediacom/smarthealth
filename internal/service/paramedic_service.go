@@ -16,7 +16,7 @@ type ParamedicService interface {
 	Update(id int, req *dto.ParamedicRequest) error
 	Delete(id int) error
 	FindAll(params *dto.FilterParams) (*[]entity.Paramedic, *dto.Paginate, error)
-	Detail(id int) (*entity.Paramedic, error)
+	Detail(id int) (*dto.ParamedicResponse, error)
 }
 
 type paramedicService struct {
@@ -88,6 +88,13 @@ func (s *paramedicService) Update(id int, req *dto.ParamedicRequest) error {
 }
 
 func (s *paramedicService) Delete(id int) error {
+	_, err := s.repository.FindById(id)
+	if err != nil {
+		return &errorhandler.NotFoundError{
+			Message: err.Error(),
+		}
+	}
+
 	return s.repository.Delete(id)
 }
 
@@ -116,7 +123,8 @@ func (s *paramedicService) FindAll(params *dto.FilterParams) (*[]entity.Paramedi
 	return paramedics, paginate, nil
 }
 
-func (s *paramedicService) Detail(id int) (*entity.Paramedic, error) {
+func (s *paramedicService) Detail(id int) (*dto.ParamedicResponse, error) {
+	var data dto.ParamedicResponse
 	paramedic, err := s.repository.FindById(id)
 	if err != nil {
 		return nil, &errorhandler.NotFoundError{
@@ -124,5 +132,21 @@ func (s *paramedicService) Detail(id int) (*entity.Paramedic, error) {
 		}
 	}
 
-	return paramedic, nil
+	hospitals := []dto.HospitalResponse{}
+	for _, s := range paramedic.Hospitals {
+		hospitals = append(hospitals, dto.HospitalResponse{
+			ID:   int(s.ID),
+			Name: s.Name,
+			IP:   s.IP,
+		})
+	}
+
+	data = dto.ParamedicResponse{
+		ID:          int(paramedic.ID),
+		Name:        paramedic.Name,
+		Hospitals:   hospitals,
+		IDSatusehat: paramedic.IDSatusehat,
+	}
+
+	return &data, nil
 }

@@ -13,9 +13,9 @@ func initializeRoutes(api *gin.RouterGroup) {
 			"message": "pong",
 		})
 	})
+	router.AuthRouter(api)
 
 	router.HospitalRouter(api)
 	router.ParamedicRouter(api)
-	router.AuthRouter(api)
-
+	router.PatientRouter(api)
 }

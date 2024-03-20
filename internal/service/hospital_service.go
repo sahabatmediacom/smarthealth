@@ -108,6 +108,13 @@ func (s *hospitalService) Update(id int, req *dto.HospitalRequest) error {
 }
 
 func (s *hospitalService) Delete(id int) error {
+	_, err := s.repository.FindById(id)
+	if err != nil {
+		return &errorhandler.NotFoundError{
+			Message: err.Error(),
+		}
+	}
+
 	if err := s.repository.Delete(id); err != nil {
 		return &errorhandler.InternalServerError{
 			Message: err.Error(),

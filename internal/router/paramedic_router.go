@@ -5,6 +5,7 @@ import (
 	"pamer-api/internal/handler"
 	"pamer-api/internal/repository"
 	"pamer-api/internal/service"
+	"pamer-api/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,6 +16,7 @@ func ParamedicRouter(api *gin.RouterGroup) {
 	paramedicHandler := handler.NewParamedicHandler(paramedicService)
 
 	r := api.Group("/paramedics")
+	r.Use(middleware.Authenticate)
 	r.GET("/", paramedicHandler.GetAll)
 	r.GET("/:id", paramedicHandler.Get)
 	r.POST("/", paramedicHandler.Create)

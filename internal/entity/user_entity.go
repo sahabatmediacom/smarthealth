@@ -7,5 +7,6 @@ type User struct {
 	Username    string `gorm:"unique"`
 	Password    string
 	ParamedicID string
+	Paramedic   Paramedic `gorm:"foreignKey:UserID"`
 	// Paramedic   Paramedic `gorm:"foreignKey:ParamedicID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }

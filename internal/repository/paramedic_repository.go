@@ -112,7 +112,7 @@ func (r *paramedicRepo) FindById(id int) (*entity.Paramedic, error) {
 
 func (r *paramedicRepo) FindAll(params *dto.FilterParams) (*[]entity.Paramedic, error) {
 	var paramedics *[]entity.Paramedic
-	query := r.db.Model(&entity.Paramedic{}).Preload("Hospitals").Select("id, name, id_dokter_satusehat, created_at")
+	query := r.db.Model(&entity.Paramedic{}).Preload("Hospitals").Select("id, name, id_satusehat, created_at")
 
 	if params.Search != "" {
 		query.Where("name LIKE ?", fmt.Sprintf("%%%s%%", params.Search))

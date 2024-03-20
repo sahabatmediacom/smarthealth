@@ -25,14 +25,14 @@ func NewAuthRepository(db *gorm.DB) *authRepository {
 
 func (r *authRepository) Register(req *entity.User) error {
 	// Cek apakah paramedicID sudah terisi
-	if req.ParamedicID != "" {
-		// Jika sudah terisi, cek apakah paramedis dengan ID tersebut ada
-		var paramedic entity.Paramedic
-		if err := r.db.First(&paramedic, "id = ?", req.ParamedicID).Error; err != nil {
-			// Jika paramedis tidak ditemukan, kembalikan error
-			return err
-		}
-	}
+	// if req.ParamedicID != "" {
+	// 	// Jika sudah terisi, cek apakah paramedis dengan ID tersebut ada
+	// 	var paramedic entity.Paramedic
+	// 	if err := r.db.First(&paramedic, "id = ?", req.ParamedicID).Error; err != nil {
+	// 		// Jika paramedis tidak ditemukan, kembalikan error
+	// 		return err
+	// 	}
+	// }
 
 	// Simpan user ke database
 	if err := r.db.Create(req).Error; err != nil {

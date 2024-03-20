@@ -68,7 +68,7 @@ func (s *authService) Login(req *dto.LoginRequest) (*dto.LoginResponse, error) {
 
 	user, err := s.repository.GetUserByUsername(req.Username)
 	if err != nil {
-		return nil, &errorhandler.NotFoundError{Message: "user tidak ditemukan"}
+		return nil, &errorhandler.NotFoundError{Message: "User tidak ditemukan"}
 	}
 
 	if passwordValid := helper.ComparePassword(user.Password, req.Password); !passwordValid {
